@@ -6,9 +6,10 @@
 
 ## 🚀 Tecnologias
 
-- ASP.NET Core 5.0
+- ASP.NET Core 3.1
 
 ## ✋🏻 Pré-requisitos
 
 - Banco de dados SQL Server
 - Entity Framework Core – EF Core
+- Docker
