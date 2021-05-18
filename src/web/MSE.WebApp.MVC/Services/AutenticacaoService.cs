@@ -25,17 +25,17 @@ namespace MSE.WebApp.MVC.Services
                 Encoding.UTF8,
                 "application/json");
 
-            var spHandler = new HttpClientHandler()
-            {
-                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) =>
-                {
-                    return true;
-                }
-            };
+            //var spHandler = new HttpClientHandler()
+            //{
+            //    ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) =>
+            //    {
+            //        return true;
+            //    }
+            //};
 
-            var spClient = new HttpClient(spHandler);
+            //var spClient = new HttpClient(spHandler);
 
-            var response = await spClient.PostAsync("https://localhost:44381/api/identidade/autenticar", loginContent);
+            var response = await _httpClient.PostAsync("http://localhost:5000/api/identidade/autenticar", loginContent);
 
             var options = new JsonSerializerOptions
             {
@@ -53,7 +53,7 @@ namespace MSE.WebApp.MVC.Services
                 Encoding.UTF8,
                 "application/json");
 
-            var response = await _httpClient.PostAsync("https://localhost:44381/api/identidade/nova-conta", registroContent);
+            var response = await _httpClient.PostAsync("http://localhost:5000/api/identidade/nova-conta", registroContent);
 
             return JsonSerializer.Deserialize<UsuarioRespostaLogin>(await response.Content.ReadAsStringAsync());
         }
