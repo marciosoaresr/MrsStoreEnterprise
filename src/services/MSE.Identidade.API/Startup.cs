@@ -15,7 +15,7 @@ namespace MSE.Identidade.API
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(hostEnvironment.ContentRootPath)
-                .AddJsonFile("appsettings.Development.json", true, true)
+                .AddJsonFile("appsettings.json", true, true)
                 .AddJsonFile($"appsetings.{hostEnvironment.EnvironmentName}.json", true, true)
                 .AddEnvironmentVariables();
 

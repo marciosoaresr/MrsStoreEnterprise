@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace MSE.WebApp.MVC.Controllers
 {
-    public class IdentidadeController : Controller
+    public class IdentidadeController : MainController
     {
         private readonly IAutenticacaoService _autenticacaoService;
 
@@ -36,7 +36,7 @@ namespace MSE.WebApp.MVC.Controllers
 
             var response = await _autenticacaoService.Registro(usuarioRegistro);
 
-            //if (false) return View(usuarioRegistro);
+            if (ResponsePossuiErros(response.ResponseResult)) return View(usuarioRegistro);
 
             await RealizarLogin(response);
 
@@ -45,30 +45,35 @@ namespace MSE.WebApp.MVC.Controllers
 
         [HttpGet]
         [Route("login")]
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login(UsuarioLogin usuarioLogin)
+        public async Task<IActionResult> Login(UsuarioLogin usuarioLogin, string returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             if (!ModelState.IsValid) return View(usuarioLogin);
 
-            var response = await _autenticacaoService.Login(usuarioLogin);
+            var resposta = await _autenticacaoService.Login(usuarioLogin);
 
-            //if (false) return View(usuarioLogin);
+            if (ResponsePossuiErros(resposta.ResponseResult)) return View(usuarioLogin);
 
-            await RealizarLogin(response);
+            await RealizarLogin(resposta);
 
-            return RedirectToAction("Index", "Home");
+            if (string.IsNullOrEmpty(returnUrl)) return RedirectToAction("Index", "Home");
+
+            return LocalRedirect(returnUrl);
         }
 
         [HttpGet]
         [Route("sair")]
         public async Task<IActionResult> Logout()
         {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
         }
 

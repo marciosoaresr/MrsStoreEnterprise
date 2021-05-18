@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MSE.WebApp.MVC.Models
 {
@@ -36,6 +33,7 @@ namespace MSE.WebApp.MVC.Models
         public string AccessToken { get; set; }
         public double ExpiresIn { get; set; }
         public UsuarioToken UsuarioToken { get; set; }
+        public ResponseResult ResponseResult { get; set; }
     }
 
     public class UsuarioToken
