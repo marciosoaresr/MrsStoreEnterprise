@@ -13,7 +13,7 @@ namespace MSE.Identidade.API.Configuration
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "MrsStore API",
+                    Title = "MrsStore - Identidade API",
                     Description = "",
                     Contact = new OpenApiContact() { Name = "Marcio Soares", Email = "mrssistemas@gmail.com" },
                     License = new OpenApiLicense() { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
