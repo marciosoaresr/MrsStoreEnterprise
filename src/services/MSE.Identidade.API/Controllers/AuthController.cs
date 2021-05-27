@@ -2,8 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using MSE.Identidade.API.Controllers;
-using NSE.Identidade.API.Extensions;
+using MSE.WebApi.Core.Identidade;
 using NSE.Identidade.API.Models;
 using System;
 using System.Collections.Generic;
@@ -13,7 +12,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NSE.Identidade.API.Controllers
+namespace MSE.Identidade.API.Controllers
 {
     [Route("api/identidade")]
     public class AuthController : MainController

@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MSE.Catalogo.API.Data;
+using MSE.WebApi.Core.Identidade;
 
 namespace MSE.Catalogo.API.Configuration
 {
@@ -41,7 +42,7 @@ namespace MSE.Catalogo.API.Configuration
 
             app.UseCors("Total");
 
-            //app.UseAuthConfiguration();
+            app.UseAuthConfiguration();
 
             app.UseEndpoints(endpoints =>
             {
