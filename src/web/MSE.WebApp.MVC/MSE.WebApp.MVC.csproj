@@ -22,4 +22,9 @@
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\building blocks\MSE.Core\MSE.Core.csproj" />
+    <ProjectReference Include="..\..\building blocks\MSE.WebApi.Core\MSE.WebApi.Core.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MSE.Catalogo.API.Models;
 using MSE.WebApi.Core.Identidade;
+using NSE.WebAPI.Core.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace MSE.Catalogo.API.Controllers
 {
-    [ApiController]
+
     [Authorize]
-    public class CatalogoController : Controller
+    public class CatalogoController : MainController
     {
         private readonly IProdutoRepository _produtoRepository;
 

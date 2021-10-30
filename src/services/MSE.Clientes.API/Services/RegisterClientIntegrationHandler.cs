@@ -1,13 +1,15 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using FluentValidation.Results;
+﻿using FluentValidation.Results;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MSE.Clientes.API.Application.Commands;
 using MSE.Core.Mediator;
 using MSE.Core.Messages.Integration;
 using MSE.MessageBus;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MSE.Clientes.API.Services
 {

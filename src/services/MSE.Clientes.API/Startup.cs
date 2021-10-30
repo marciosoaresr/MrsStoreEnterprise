@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MSE.Clientes.API.Configuration;
-using MSE.Identidade.API.Configuration;
 using MSE.WebApi.Core.Identidade;
 
 namespace MSE.Clientes.API
@@ -43,6 +42,7 @@ namespace MSE.Clientes.API
             services.RegisterServices();
 
             services.AddMessageBusConfiguration(Configuration);
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -1,10 +1,9 @@
-﻿using System;
-using MediatR;
-using MSE.Core.Messages;
+﻿using MSE.Core.Messages;
+using System;
 
 namespace MSE.Clientes.API.Application.Events
 {
-    public class ClienteRegistradoEvent : Event 
+    public class ClienteRegistradoEvent : Event
     {
         public Guid Id { get; private set; }
         public string Nome { get; private set; }

@@ -25,4 +25,8 @@
     <ProjectReference Include="..\..\building blocks\MSE.WebApi.Core\MSE.WebApi.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Application\Queries\" />
+  </ItemGroup>
+
 </Project>

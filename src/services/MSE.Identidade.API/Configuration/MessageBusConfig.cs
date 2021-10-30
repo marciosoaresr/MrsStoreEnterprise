@@ -3,12 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using MSE.Clientes.API.Services;
 using MSE.Core.Utils;
 using MSE.MessageBus;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace MSE.Clientes.API.Configuration
+namespace MSE.Identidade.API.Configuration
 {
     public static class MessageBusConfig
     {

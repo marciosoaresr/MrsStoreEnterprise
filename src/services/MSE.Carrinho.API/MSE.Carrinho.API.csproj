@@ -11,4 +11,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\building blocks\MSE.WebApi.Core\MSE.WebApi.Core.csproj" />
+    <ProjectReference Include="..\MSE.Identidade.API\MSE.Identidade.API.csproj" />
+  </ItemGroup>
+
 </Project>

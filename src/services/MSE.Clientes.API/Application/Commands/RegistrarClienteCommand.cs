@@ -1,6 +1,6 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 using MSE.Core.Messages;
+using System;
 
 namespace MSE.Clientes.API.Application.Commands
 {
@@ -58,4 +58,5 @@ namespace MSE.Clientes.API.Application.Commands
             }
         }
     }
+
 }

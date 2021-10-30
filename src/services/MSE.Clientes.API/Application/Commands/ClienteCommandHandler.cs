@@ -1,25 +1,24 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation.Results;
 using MediatR;
-using MSE.Clientes.API.Application.Commands;
 using MSE.Clientes.API.Application.Events;
+//using MSE.Clientes.API.Application.Events;
 using MSE.Clientes.API.Models;
 using MSE.Core.Messages;
 
-namespace NSE.Clientes.API.Application.Commands
+namespace MSE.Clientes.API.Application.Commands
 {
-    public class ClienteCommandHandler: CommandHandler,
+    public class ClienteCommandHandler : CommandHandler,
         IRequestHandler<RegistrarClienteCommand, ValidationResult>
     {
-
         private readonly IClienteRepository _clienteRepository;
 
         public ClienteCommandHandler(IClienteRepository clienteRepository)
         {
             _clienteRepository = clienteRepository;
         }
-
 
         public async Task<ValidationResult> Handle(RegistrarClienteCommand message, CancellationToken cancellationToken)
         {
