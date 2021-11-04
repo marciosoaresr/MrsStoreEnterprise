@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MSE.Carrinho.API.Data;
+using MSE.Core.Messages.Integration;
 using MSE.MessageBus;
 using System;
 using System.Collections.Generic;

@@ -1,46 +1,61 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using System.Net.Http;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MSE.WebApp.MVC.Extensions;
 using MSE.WebApp.MVC.Services;
 using MSE.WebApp.MVC.Services.Handlers;
+using MSE.WebApi.Core.Usuario;
 using Polly;
 using Polly.Extensions.Http;
 using Polly.Retry;
-using System;
-using System.Net.Http;
 
-namespace MSE.WebApp.MVC.Configuration
+namespace NSE.WebApp.MVC.Configuration
 {
     public static class DependencyInjectionConfig
     {
         public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddSingleton<IValidationAttributeAdapterProvider, CpfValidationAttributeAdapterProvider>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IAspNetUser, AspNetUser>();
+
+            #region HttpServices
+
             services.AddTransient<HttpClientAuthorizationDelegatingHandler>();
 
-            services.AddHttpClient<IAutenticacaoService, AutenticacaoService>();
+            services.AddHttpClient<IAutenticacaoService, AutenticacaoService>()
+                .AddPolicyHandler(PollyExtensions.EsperarTentar())
+                .AddTransientHttpErrorPolicy(
+                    p => p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
 
             services.AddHttpClient<ICatalogoService, CatalogoService>()
                 .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
-                //.AddTransientHttpErrorPolicy(
-                //p => p.WaitAndRetryAsync(3, _=> TimeSpan.FromMilliseconds(600)))
-                .AddPolicyHandler(PolicyExtensions.EsperarTentar());
+                .AddPolicyHandler(PollyExtensions.EsperarTentar())
+                .AddTransientHttpErrorPolicy(
+                    p => p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
 
-            services.AddHttpClient("Refit", options =>
-            {
-                options.BaseAddress = new Uri(configuration.GetSection("CatalogoUrl").Value);
-            })
-            .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
-            .AddTypedClient(Refit.RestService.For<ICatalogoServiceRefit>);
+            services.AddHttpClient<IComprasBffService, ComprasBffService>()
+                .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
+                .AddPolicyHandler(PollyExtensions.EsperarTentar())
+                .AddTransientHttpErrorPolicy(
+                    p => p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
 
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddHttpClient<IClienteService, ClienteService>()
+               .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
+               .AddPolicyHandler(PollyExtensions.EsperarTentar())
+               .AddTransientHttpErrorPolicy(
+                   p => p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
 
-            services.AddScoped<IUser, AspNetUser>();
+            #endregion
         }
-
     }
 
-    public class PolicyExtensions
+    #region PollyExtension
+
+    public class PollyExtensions
     {
         public static AsyncRetryPolicy<HttpResponseMessage> EsperarTentar()
         {
@@ -51,7 +66,7 @@ namespace MSE.WebApp.MVC.Configuration
                     TimeSpan.FromSeconds(1),
                     TimeSpan.FromSeconds(5),
                     TimeSpan.FromSeconds(10),
-                }, (outcome, timeSpan, retryCount, context) =>
+                }, (outcome, timespan, retryCount, context) =>
                 {
                     Console.ForegroundColor = ConsoleColor.Blue;
                     Console.WriteLine($"Tentando pela {retryCount} vez!");
@@ -61,4 +76,6 @@ namespace MSE.WebApp.MVC.Configuration
             return retry;
         }
     }
+
+    #endregion
 }

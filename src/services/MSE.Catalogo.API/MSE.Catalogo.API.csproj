@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\building blocks\MSE.Core\MSE.Core.csproj" />
+    <ProjectReference Include="..\..\building blocks\MSE.MessageBus\MSE.MessageBus.csproj" />
     <ProjectReference Include="..\..\building blocks\MSE.WebApi.Core\MSE.WebApi.Core.csproj" />
   </ItemGroup>
 
